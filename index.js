@@ -1,23 +1,20 @@
-//find the correct point, click on Create button
 let taskContainer = document.querySelector("#taskContainer");
-
 let taskModalSaveButton = document.querySelector("#save");
 
 taskModalSaveButton.addEventListener("click", saveButtonClicked);
 
 function saveButtonClicked(e) {
-    const name = document.querySelector("#taskName").value;
-    const description = document.querySelector("#taskDescription").value;
-    const asignee = document.querySelector("#assignedTo").value;
-    const date = document.querySelector("#dueDate").value;
-    // const time = document.querySelector("#taskTime").value; IS MISSING, ADD IT
-    const status = document.querySelector("#status").value;
+  const name = document.querySelector("#taskName").value;
+  const description = document.querySelector("#taskDescription").value;
+  const asignee = document.querySelector("#assignedTo").value;
+  const date = document.querySelector("#dueDate").value;
+  const status = document.querySelector("#status").value;
 
-    addTask(name, description, asignee, date, status);
+  addTask(name, description, asignee, date, status);
 }
 
 function addTask(name, description, asignee, date, status) {
-    const html = `      <div class="col-lg-4">
+  const html = `      <div class="col-lg-4">
     <div class="card my-4">
       
       <div
@@ -83,7 +80,7 @@ function addTask(name, description, asignee, date, status) {
   </div>
 `;
 
-    const taskElement = document.createRange().createContextualFragment(html);
+  const taskElement = document.createRange().createContextualFragment(html);
 
-    taskContainer.append(taskElement);
+  taskContainer.append(taskElement);
 }
