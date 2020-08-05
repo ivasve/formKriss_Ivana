@@ -42,7 +42,10 @@ statusInput.addEventListener('change', inputEventListener);
 
 // END of create task modal input elements
 
-const x = 0;
+const taskManager = new TaskManager();
+//test
+taskManager.generateTasks();
+console.log("");
 
 function saveButtonClicked(e) {
   //To save EDITS
@@ -57,8 +60,8 @@ function saveButtonClicked(e) {
 }
 
 function addTask() {
-// To save newly created tasks
-// Creates a new card from a string
+  // To save newly created tasks
+  // Creates a new card from a string
   const name = document.querySelector("#taskName").value;
   const description = document.querySelector("#taskDescription").value;
   const asignee = document.querySelector("#assignedTo").value;
@@ -66,7 +69,10 @@ function addTask() {
   // const time = document.querySelector("#taskTime").value; IS MISSING, ADD IT
   const status = document.querySelector("#status").value;
 
-
+  let newTask = new Task(0, name, description, asignee, new Date(date), status);
+  let newId = taskManager.addTask(newTask);
+  console.log(newId);
+  console.table(taskManager.tasks);
 
   const html = `      <div class="col-lg-4">
     <div class="card my-4">
@@ -141,8 +147,8 @@ function addTask() {
 
 
 function formEventListener(event) {
-// Expecting the SBMIT EVENT
-// NOT FIRING AT THE MOMENT - WE don't need the form to be submitted anyway because the ADD BUTTON creates and displays the newly created task.
+  // Expecting the SUBMIT EVENT
+  // NOT FIRING AT THE MOMENT - WE don't need the form to be submitted anyway because the ADD BUTTON creates and displays the newly created task.
   const valid = this.checkValidity();
 
   if (this.checkValidity() === false) {
@@ -167,16 +173,11 @@ function formEventListener(event) {
 
 }
 
-// function wait(ms) {
-//   var d = new Date();
-//   var d2 = null;
-//   do { d2 = new Date(); }
-//   while (d2 - d < ms);
-// }
+
 
 function inputEventListener() {
 
-// The listener for all the inputs
+  // The listener for all the inputs
 
   let b = newTaskForm.checkValidity();
 
