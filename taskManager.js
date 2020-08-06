@@ -28,18 +28,22 @@ class TaskManager {
     let storedTasksJSON = window.localStorage.getItem("tasks");
     let storedTaskObjects = JSON.parse(storedTasksJSON);
 
-    storedTaskObjects.forEach((t) => {
-      const taskObject = new Task(
-        t.id,
-        t.name,
-        t.description,
-        t.assignedTo,
-        t.dueDate,
-        t.status
-      );
-      this.tasks.unshift(taskObject);
-      this.taskId++;
-    });
+    if (storedTaskObjects) {
+      storedTaskObjects.forEach((t) => {
+        const taskObject = new Task(
+          t.id,
+          t.name,
+          t.description,
+          t.assignedTo,
+          t.dueDate,
+          t.status
+        );
+
+
+        this.tasks.unshift(taskObject);
+        this.taskId++;
+      })
+    };
   }
   getTasks() {
     return this.tasks;
@@ -54,6 +58,7 @@ class TaskManager {
     this.taskId++;
     newTask.id = this.taskId;
     this.tasks.unshift(newTask);
+    this.saveTasks();
     return this.taskId;
   }
   deleteTask(taskToDelete) {
@@ -63,6 +68,7 @@ class TaskManager {
     //alert(taskIndex);
     if (taskIndex != -1) {
       let deletedItem = this.tasks.splice(taskIndex, 1);
+      this.saveTasks();
     }
   }
   deleteTaskById(taskId) {
@@ -72,6 +78,7 @@ class TaskManager {
     //alert(taskIndex);
     if (taskIndex != -1) {
       let deletedItem = this.tasks.splice(taskIndex, 1);
+      this.saveTasks();
     }
   }
   getTaskIndexFromId(taskId) {
