@@ -155,12 +155,12 @@ class TaskManager {
       this.saveTasks();
     }
   }
-  displayTasks(output) {
-    let out = document.getElementById(output);
+  displayTasks(destinationId) {
+    let out = document.getElementById(destinationId);
     out.innerHTML = "";
 
     this.tasks.forEach((theTask) => {
-      domManager.createTaskCardDomElements(output, theTask);
+      domManager.createTaskCardDomElements(destinationId, theTask);
     });
   }
 }
