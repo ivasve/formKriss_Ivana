@@ -159,7 +159,7 @@ function addTask() {
 
   if (deleteBtn) {
     deleteBtn.addEventListener("click", function (event) {
-      alert("Hello");
+      
       var taskElement = event.target.closest(".task");
       taskManager.deleteTaskById(taskElement.id);
       //todo Remove Card from DOM; Refresh screen
