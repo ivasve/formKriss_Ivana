@@ -250,7 +250,6 @@ const domManager = {
       deleteBtn.addEventListener("click", function (event) {
         var taskElement = event.target.closest(".task");
         taskManager.deleteTaskById(taskElement.id);
-        //todo Remove Card from DOM; Refresh screen
         taskManager.displayTasks("tasksrow");
       });
     }
