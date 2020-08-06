@@ -1,7 +1,9 @@
 //newTaskForm is the form in the create task modal
-let newTaskForm = document.getElementById('newTaskForm');
-newTaskForm.addEventListener('submit', formEventListener);
-newTaskForm.addEventListener('load', () => { taskNameInput.focus(); });
+let newTaskForm = document.getElementById("newTaskForm");
+newTaskForm.addEventListener("submit", formEventListener);
+newTaskForm.addEventListener("load", () => {
+  taskNameInput.focus();
+});
 
 //find the correct point, click on Create button
 let tasksContainer = document.querySelector("#tasksrow");
@@ -21,40 +23,40 @@ addTaskButton.onclick = addTask;
 // START of create task modal input elements
 
 let taskNameInput = document.getElementById("taskName");
-taskNameInput.addEventListener('keypress', inputEventListener);
-taskNameInput.addEventListener('change', inputEventListener);
+taskNameInput.addEventListener("keypress", inputEventListener);
+taskNameInput.addEventListener("change", inputEventListener);
 
 let taskDescriptionInput = document.getElementById("taskDescription");
-taskDescriptionInput.addEventListener('keypress', inputEventListener);
-taskDescriptionInput.addEventListener('change', inputEventListener);
+taskDescriptionInput.addEventListener("keypress", inputEventListener);
+taskDescriptionInput.addEventListener("change", inputEventListener);
 
 let assignedToInput = document.getElementById("assignedTo");
-assignedToInput.addEventListener('keypress', inputEventListener);
-assignedToInput.addEventListener('change', inputEventListener);
+assignedToInput.addEventListener("keypress", inputEventListener);
+assignedToInput.addEventListener("change", inputEventListener);
 
 let dueDateInput = document.getElementById("dueDate");
-dueDateInput.addEventListener('keypress', inputEventListener);
-dueDateInput.addEventListener('change', inputEventListener);
+dueDateInput.addEventListener("keypress", inputEventListener);
+dueDateInput.addEventListener("change", inputEventListener);
 
 let statusInput = document.getElementById("status");
-statusInput.addEventListener('keypress', inputEventListener);
-statusInput.addEventListener('change', inputEventListener);
+statusInput.addEventListener("keypress", inputEventListener);
+statusInput.addEventListener("change", inputEventListener);
 
 // END of create task modal input elements
 
 const taskManager = new TaskManager();
 //test
-taskManager.generateTasks();
 console.log("");
+taskManager.generateRandomTasks(true);
+taskManager.displayTasks("tasksrow");
 
 function saveButtonClicked(e) {
   //To save EDITS
-  const name = document.querySelector("#taskName").value;
-  const description = document.querySelector("#taskDescription").value;
-  const asignee = document.querySelector("#assignedTo").value;
-  const date = document.querySelector("#dueDate").value;
-  // const time = document.querySelector("#taskTime").value; IS MISSING, ADD IT
-  const status = document.querySelector("#status").value;
+  const name = document.querySelector("#taskName2").value;
+  const description = document.querySelector("#taskDescription2").value;
+  const asignee = document.querySelector("#assignedTo2").value;
+  const date = document.querySelector("#dueDate2").value;
+  const status = document.querySelector("#status2").value;
 
   addTask(name, description, asignee, date, status);
 }
@@ -62,89 +64,109 @@ function saveButtonClicked(e) {
 function addTask() {
   // To save newly created tasks
   // Creates a new card from a string
+
   const name = document.querySelector("#taskName").value;
   const description = document.querySelector("#taskDescription").value;
   const asignee = document.querySelector("#assignedTo").value;
   const date = document.querySelector("#dueDate").value;
-  // const time = document.querySelector("#taskTime").value; IS MISSING, ADD IT
-  const status = document.querySelector("#status").value;
+  const status = document.querySelector("#addStatus").value;
 
   let newTask = new Task(0, name, description, asignee, new Date(date), status);
   let newId = taskManager.addTask(newTask);
   console.log(newId);
+  console.log(status);
   console.table(taskManager.tasks);
 
-  const html = `      <div class="col-lg-4">
-    <div class="card my-4">
-      
-      <div
-        class="card-header"
-        id="header1"
-        style="background-color: rgb(96, 96, 245); color: white;"
-      >
-        <h2 class="mb-0 text-left" style="text-decoration: none;">
-          <button
-            id="b1"
-            class="btn btn-block text-left"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapse1"
-            aria-expanded="true"
-            aria-controls="collapse1"
-            style="background-color: rgb(96, 96, 245); color: white;"
+  const html = `
+    <div id="${newId++}" class="task col-lg-4">
+      <div class="card my-4">
+
+        <div
+          class="card-header"
+          id="header1
           >
-            <strong
-              ><h5
-                class="text-center"
-                style="
-                  text-decoration: none;
-                  background-color: rgb(96, 96, 245);
-                  color: white;
-                "
-              >
-            ${name}
-              </h5></strong
-            >
-          </button>
-        </h2>
-      </div>
-      <div id="collapse1" class="collapse show" aria-labelledby="head1">
-        <div class="card-body">
-          <h5 class="card-title">${description}</h5>
-          <p class="card-text"></p>
-        </div>
-        <ul class="list-group list-group-flush">
-          
-          <li
-            class="list-group-item"
-            style="background-color: rgb(141, 234, 250);"
-          >
-            Asignee: ${asignee}
-          </li>
-          <li class="list-group-item">Date Due: ${date}</li>
-          <li class="list-group-item" id="status">Status: ${status}
-          </li>
-          <li class="list-group-item">
+          <h2 class="mb-0 text-left" style="text-decoration: none;">
             <button
+              id="b1"
+              class="btn btn-block text-left"
               type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#taskEditModal"
+              data-toggle="collapse"
+              data-target="#collapse1"
+              aria-expanded="true"
+              aria-controls="collapse1"
+              style="background-color: rgb(96, 96, 245); color: white;"
             >
-              Edit
+              <strong>
+                <h5
+                  class="text-center"
+                  style="
+                    text-decoration: none;
+                    background-color: rgb(96, 96, 245);
+                    color: white;
+                  "
+                >
+                ${name}</h5>
+              </strong>
             </button>
-          </li>
-        </ul>
+          </h2>
+        </div>
+
+        <div id="collapse1" class="collapse show" aria-labelledby="head1">
+          <div class="card-body">
+            <h5 class="card-title">${description}</h5>
+            <p class="card-text"></p>
+          </div>
+
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item"
+              style="background-color: rgb(141, 234, 250);"
+            >
+              Asignee: ${asignee}
+            </li>
+            <li class="list-group-item">Date Due: ${date}</li>
+            <li class="list-group-item status">Status: ${status}</li>
+            <li class="list-group-item">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#taskEditModal"
+              >
+                Edit
+              </button>
+              <button
+                  type="button"
+                  id="deleteBtn${newId}"
+                  class="deleteBtn btn btn-secondary btn-sm"
+                  >
+                  Delete
+              </button>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
-  </div>
-`;
+  `;
 
-  const taskElement = document.createRange().createContextualFragment(html);
+  let taskFragment = document.createRange().createContextualFragment(html);
+  console.log(html);
+  tasksContainer.append(taskFragment);
 
-  tasksContainer.append(taskElement);
+  // window.onload = function () {}
+  let deleteBtn = document.querySelector("#deleteBtn" + newId);
+
+  if (deleteBtn) {
+    deleteBtn.addEventListener("click", function (event) {
+      alert("Hello");
+      var taskElement = event.target.closest(".task");
+      taskManager.deleteTaskById(taskElement.id);
+      //todo Remove Card from DOM; Refresh screen
+      taskManager.displayTasks("tasksrow");
+    });
+  }
 }
-
 
 function formEventListener(event) {
   // Expecting the SUBMIT EVENT
@@ -156,11 +178,9 @@ function formEventListener(event) {
     event.preventDefault();
     event.stopPropagation();
     this.reset();
-  }
-  else {
+  } else {
     // Form is VALID
     // Therefore we want to continue with the submit
-
     //remove the following to allow the submission to proceed at a later date after testing
     //event.preventDefault();
     //event.stopPropagation();
@@ -169,30 +189,22 @@ function formEventListener(event) {
 
   // The 'was-validated' class is saying the form has been through the validation process, BUT NOT that the form is valid.
   // Only when the form has this class, the pass and fail messages will be shown.
-  this.classList.add('was-validated');
-
+  this.classList.add("was-validated");
 }
 
-
-
 function inputEventListener() {
-
   // The listener for all the inputs
 
   let b = newTaskForm.checkValidity();
 
   if (b == false) {
-
     // Only enable (or maybe display) the add button if the form is valid
     addTaskButton.classList.add("hide");
     addTaskButton.classList.remove("show");
     //alert("some fields are invalid");
-  }
-  else {
-
+  } else {
     addTaskButton.classList.add("show");
     addTaskButton.classList.remove("hide");
-
   }
   // The 'was-validated' class is saying the form has been through the validation process, BUT NOT THAT THE FORM IS VALID.
   // the pass and fail messages will be shown only when the form has been given this class, .
@@ -204,5 +216,4 @@ function clearForm() {
   newTaskForm.reset();
   // Remove the class that allows the pass and fail messages to be displayed.
   newTaskForm.classList.remove("was-validated");
-
 }
