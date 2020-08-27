@@ -1,476 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-      shrink-to-fit="no"
-    />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-      crossorigin="anonymous"
-    />
 
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"
-    ></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" shrink-to-fit="no" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="stylesheet.css" />
-    <title>Personal planner</title>
-  </head>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
 
-  <body
-    class="container"
-    id="taskContainer"
-    style="background-color: rgb(137, 198, 216);"
-  >
-    <h1 class="text-center">Personal Planner</h1>
-
-    <!--Button trigger modal-->
-    <button
-      id="btnCreateTask"
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#taskModal"
-    >
-      Create task
-    </button>
-
-    <h5 class="my-4">
-      Today - Tue 14 July
-    </h5>
-
-    <div class="row" id="tasksrow">
-      <!-- Item1 -->
-      <div class="col-lg-4">
-        <div class="card my-4">
-          <div
-            class="card-header"
-            id="header1"
-            style="background-color: rgb(245, 170, 32); color: white;"
-          >
-            <h2 class="mb-0 text-left" style="text-decoration: none;">
-              <button
-                id="b1"
-                class="btn btn-block text-left"
-                type="button"
-                data-toggle="collapse"
-                data-target="#collapse1"
-                aria-expanded="true"
-                aria-controls="collapse1"
-                style="background-color: rgb(96, 96, 245); color: white;"
-              >
-                <strong>
-                  <h5
-                    class="text-center"
-                    style="
-                      text-decoration: none;
-                      background-color: rgb(96, 96, 245);
-                      color: white;
-                    "
-                  >
-                    Groceries
-                  </h5>
-                </strong>
-              </button>
-            </h2>
-          </div>
-          <div id="collapse1" class="collapse show" aria-labelledby="head1">
-            <div class="card-body">
-              <h5 class="card-title">Get this week's groceries</h5>
-              <p class="card-text"></p>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li
-                class="list-group-item"
-                style="background-color: rgb(141, 234, 250);"
-              >
-                Asignee: Kriss Wilson
-              </li>
-              <li class="list-group-item">Date Due: 21/07/2020</li>
-              <li class="list-group-item">
-                <div class="form-group">
-                  <label for="status">Status</label>
-                  <div class="col-8">
-                    <select class="form-control" id="status">
-                      <option>To Do</option>
-                      <option>In Progress</option>
-                      <option>Review</option>
-                      <option>Done</option>
-                    </select>
-                  </div>
-                </div>
-              </li>
-
-              <li class="list-group-item">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#taskEditModal"
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary btn-sm"
-                  id="deleteBtn"
-                >
-                  Delete
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Item2
-            <div class="col-lg-4">
-              <div class="card my-4">
-                 Style:Background color is just an example. will be changed. 
-                 <div
-                  class="card-header"
-                  id="header2"
-                  style="background-color: rgb(131, 8, 14); color: white;"
-                >
-                  <h2 class="mb-0 text-left" style="text-decoration: none;">
-                    <button
-                      id="b2"
-                      class="btn btn-block text-left"
-                      type="button"
-                      data-toggle="collapse"
-                      data-target="#collapse2"
-                      aria-expanded="true"
-                      aria-controls="collapse2"
-                      style="background-color: rgb(96, 96, 245); color: white;"
-                    >
-                      <strong
-                        ><h5
-                          class="text-center"
-                          style="
-                            text-decoration: none;
-                            background-color: rgb(96, 96, 245);
-                            color: white;
-                          "
-                        >
-                          Groceries
-                        </h5></strong
-                      >
-                    </button>
-                  </h2>
-                </div>
-                <div id="collapse2" class="collapse show" aria-labelledby="head2">
-                  <div class="card-body">
-                    <h5 class="card-title">Get this week's groceries</h5>
-                    <p class="card-text"></p>
-                  </div>
-                  <ul class="list-group list-group-flush">
-                     
-                    <li
-                      class="list-group-item"
-                      style="background-color: rgb(141, 234, 250);"
-                    >
-                      Asignee: Kriss Wilson
-                    </li>
-                    <li class="list-group-item">Date Due: 21/07/2020</li>
-                    <li class="list-group-item" id="status">Status
-                       <div class="form-group">
-                         <label for="status">Status</label>
-                        <div class="col-8">
-                          <select class="form-control" id="status">
-                            <option>To Do</option>
-                            <option>In Progress</option>
-                            <option>Review</option>
-                            <option>Done</option>
-                          </select>
-                        </div> 
-                      </div> 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
-                       <div class="dropdown show">
-                        <button
-                          class="btn btn-secondary dropdown-toggle"
-                          type="button"
-                          id="dropdownMenuButton"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="true"
-                        >
-                          Status
-                        </button>
-                        <div
-                          class="dropdown-menu"
-                          aria-labelledby="dropdownMenuButton"
-                          x-placement="bottom-start"
-                          style="
-                            position: absolute;
-                            transform: translate3d(0px, 38px, 0px);
-                            top: 0px;
-                            left: 0px;
-                            will-change: transform;
-                          "
-                        >
-                          <a class="dropdown-item" href="#">TO DO</a>
-                          <a class="dropdown-item" href="#">In progress</a>
-                          <a class="dropdown-item" href="#">REVIEW</a>
-                          <a class="dropdown-item" href="#">DONE</a>
-                        </div>
-                      </div> 
-                    </li>
-                    <li class="list-group-item">
-                      <button
-                        type="button"
-                        class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#taskEditModal"
-                      >
-                        Edit
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> -->
+  <link rel="stylesheet" href="stylesheet.css" />
+  <title>Personal planner</title>
+</head>
+
+<body class="container" id="taskContainer" style="background-color: rgb(137, 198, 216);">
+  <h1 class="text-center">Personal Planner</h1>
+
+  <div class="row my-4">
+    <div class="col">
+      <!--Button trigger modal-->
+      <button id="btnCreateTask" type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
+        Create task
+      </button>
     </div>
+  </div>
 
-    <!-- Add New Task Form Starts here  -->
-    <div class="modal fade" id="taskModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-light">
-            <h5 class="modal-title">Create Task</h5>
-            <button class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
+  <div class="row">
+    <div class="col">
+      <button id="btnChangeStatusToReview" type="button" class="btn btn-info Review">
+        Review
+      </button>
 
+      <button id="btnChangeStatusToDo" type="button" class="btn btn-info To">
+        To Do
+      </button>
+
+      <button id="btnChangeStatusToProgress" type="button" class="btn btn-info Progress">
+        In Progress
+      </button>
+
+
+      <button id="btnChangeStatusToDone" type="button" class="btn btn-info Done">
+        Done
+      </button>
+
+      <button id="btnChangeStatusToAll" type="button" class="btn All">
+        All
+      </button>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col">
+      <h5 class="my-4">
+        Today:&nbsp;
+      </h5>
+
+      <h5 class="my-4" id="date" type="date"></h5>
+    </div>
+  </div>
+
+  <!--what the created card is supposed to look like-->
+  <div class="row" id="tasksrow">
+
+  </div>
+
+  <!-- Add New Task Modal  -->
+  <div class="modal fade" id="taskModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title">Create Task</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+
+        <form id="newTaskForm" class="">
           <div class="modal-body bg-light">
-            <form id="newTaskForm" class="">
-              <!-- Task Name -->
-              <input type="text" id="taskId" hidden />
-              <div id="form-group" class="needs-validation">
-                <label for="taskName" class="col">Task Name</label>
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="taskName"
-                    placeholder="Task Name"
-                    title="Task name is required"
-                    value=""
-                    required
-                  />
-                  <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                  <div class="invalid-feedback">
-                    Please provide a task name
-                  </div>
-                  <span id="nmErrMsg"></span>
+            <!-- Task Name -->
+            <div id="form-group" class="needs-validation">
+              <label for="taskName" class="col">Task Name</label>
+              <div class="col-8">
+                <input type="text" minlength="8" class="form-control" id="taskName" name="taskName"
+                  placeholder="Task Name" title="Task name is required" value="" required autocomplete="off"
+                  autofocus="autofocus" />
+                <div class="valid-feedback">
+                  Looks good!
                 </div>
+                <div class="invalid-feedback">
+                  Please provide a task name. Min.8 characters long.
+                </div>
+                <span id="nmErrMsg"></span>
               </div>
+            </div>
 
-              <!-- Task description -->
-              <div class="form-group">
-                <label for="taskDescription" class="col"
-                  >Task Description</label
-                >
-                <div class="col-8">
-                  <!--type="text"-->
-                  <textarea
-                    class="form-control"
-                    id="taskDescription"
-                    rows="3"
-                    placeholder="Task Description"
-                    required
-                  ></textarea>
-                  <div class="valid-feedback">It looks good!</div>
-                  <div class="invalid-feedback">
-                    Task Description cannot be empty!
-                  </div>
+            <!-- Task description -->
+            <div class="form-group">
+              <label for="taskDescription" class="col">Task Description</label>
+              <div class="col-8">
+                <!--type="text"-->
+                <textarea class="form-control" minlength="15" id="taskDescription" rows="3"
+                  placeholder="Task Description" required></textarea>
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">
+                  Task Description cannot be empty! Min.15 characters.
                 </div>
               </div>
+            </div>
 
-              <!-- Assigned To -->
-              <div class="form-group">
-                <label for="assignedTo" class="col">Assigned To</label>
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="assignedTo"
-                    placeholder="Assigned To"
-                    required
-                  />
-                  <div class="valid-feedback">It looks good!</div>
-                  <div class="invalid-feedback">
-                    Assigned To cannot be empty!
-                  </div>
+            <!-- Assigned To -->
+            <div class="form-group">
+              <label for="assignedTo" class="col">Assigned To</label>
+              <div class="col-8">
+                <input type="text" class="form-control" id="assignedTo" placeholder="Assigned To" required
+                  autocomplete="off" />
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">
+                  Assigned To cannot be empty!
                 </div>
               </div>
+            </div>
 
-              <!-- Date Due -->
-              <div class="form-group">
-                <label for="dueDate" class="col">Date Due</label>
-                <div class="col-8">
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="dueDate"
-                    placeholder="20/07/2020"
-                    required
-                  />
-                  <div class="valid-feedback">It looks good!</div>
-                  <div class="invalid-feedback">Date Due cannot be empty!</div>
-                </div>
+            <!-- Date Due -->
+            <div class="form-group">
+              <label for="dueDate" class="col">Date Due</label>
+              <div class="col-8">
+                <input type="date" class="form-control" id="dueDate" placeholder="20/07/2020" required />
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">Date Due cannot be empty!</div>
               </div>
+            </div>
 
-              <!-- Status -->
-              <div class="form-group">
-                <label for="addStatus">Status</label>
-                <div class="col-8">
-                  <select class="form-control" id="addStatus">
-                    <option>To Do</option>
-                    <option>In Progress</option>
-                    <option>Review</option>
-                    <option>Done</option>
-                  </select>
-                  <div class="valid-feedback">It looks good!</div>
-                  <div class="invalid-feedback">Status cannot be empty!</div>
-                </div>
+            <!-- Status -->
+            <div class="form-group">
+              <label for="addStatus">Status</label>
+              <div class="col-8">
+                <select class="form-control" id="addStatus">
+                  <option>To Do</option>
+                  <option>In Progress</option>
+                  <option>Review</option>
+                  <option>Done</option>
+                </select>
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">Status cannot be empty!</div>
               </div>
-            </form>
+            </div>
           </div>
 
           <div class="modal-footer bg-light">
             <button class="btn btn-secondary" data-dismiss="modal">
               Cancel
             </button>
-            <button
-              id="addTaskButton"
-              form="newTaskForm"
-              class="btn btn-primary hide"
-              data-dismiss="modal"
-              type="submit"
-            >
+            <button id="addTaskButton" form="newTaskForm" class="btn btn-primary hide" data-dismiss="modal"
+              type="submit">
               Add
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Edit task -->
-    <div class="modal fade" id="taskEditModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-light">
-            <h5 class="modal-title">Edit Task</h5>
-            <button class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-
+  <!-- Edit task Modal -->
+  <div class="modal fade" id="taskEditModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title">Edit Task</h5>
+          <button class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <form id="updateTaskForm" class="needs-validation">
           <div class="modal-body bg-light">
-            <form>
-              <div class="form-group">
-                <label for="taskName" class="col">Task Name</label>
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="taskName2"
-                    value="Service Car"
-                    placeholder="Task Name"
-                  />
+            <input type="text" id="taskId" name="taskId" hidden />
+            <div class="form-group">
+              <label for="updateTaskNameInput" class="col">Task Name</label>
+              <div class="col-8">
+                <input type="text" minlength="8" class="form-control" id="updateTaskNameInput"
+                  name="updateTaskNameInput" value="" placeholder="Task Name" />
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">
+                  Task Name must be at least 8 characters!
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="taskDescription" class="col"
-                  >Task Description</label
-                >
-                <div class="col-8">
-                  <!--type="text"-->
-                  <textarea
-                    class="form-control"
-                    id="taskDescription2"
-                    rows="3"
-                    placeholder="Task Description"
-                  >
-    Take car to dealership for service</textarea
-                  >
+            <div class="form-group">
+              <label for="taskDescription2" class="col">Task Description</label>
+              <div class="col-8">
+                <!--type="text"-->
+                <textarea class="form-control" id="taskDescription2" minlength="15" rows="3"
+                  placeholder="Task Description">
+   </textarea>
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">
+                  Task Description must be at least 15 characters!
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="assignedTo" class="col">Assigned To</label>
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="assignedTo2"
-                    value="Ivana Jones"
-                    placeholder="Assigned To"
-                  />
+            <div class="form-group">
+              <label for="assignedTo2" class="col">Assigned To</label>
+              <div class="col-8">
+                <input type="text" class="form-control" id="assignedTo2" value="" placeholder="Assigned To" />
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">
+                  Assigned To cannot be empty!
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="dueDate" class="col">Date Due</label>
-                <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="dueDate2"
-                    placeholder="20/07/2020"
-                  />
-                </div>
+            <div class="form-group">
+              <label for="dueDate2" type="date" class="col">Date Due</label>
+              <div class="col-8">
+                <input type="date" class="form-control" id="dueDate2" placeholder="20/07/2020" />
+                <div class="valid-feedback">It looks good!</div>
+                <div class="invalid-feedback">Date Due cannot be empty!</div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="status">Status</label>
-                <div class="col-8">
-                  <select class="form-control" id="status2">
-                    <option>To Do</option>
-                    <option>In Progress</option>
-                    <option>Review</option>
-                    <option>Done</option>
-                  </select>
-                </div>
+            <div class="form-group">
+              <label for="status2">Status</label>
+              <div class="col-8">
+                <select class="form-control" id="status2">
+                  <option>To Do</option>
+                  <option>In Progress</option>
+                  <option>Review</option>
+                  <option>Done</option>
+                </select>
               </div>
-            </form>
+            </div>
           </div>
 
           <div class="modal-footer bg-light">
             <button class="btn btn-secondary" data-dismiss="modal">
               Cancel
             </button>
-            <button class="btn btn-primary" id="save">Save</button>
+            <button class="btn btn-primary" type="submit" data-dismiss="modal" id="save">
+              Update
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <script src="taskManager.js"></script>
-    <!-- taskmanager.js must come before index.js -->
-    <script src="index.js"></script>
-    <!-- <script src="formValidation/index.js"></script> -->
-  </body>
+
+  <div id="dialog-confirm" title="Delete this task?" style="display:none;">
+    <p> Are you sure?</p>
+  </div>
+
+
+  <script src=" taskManager.js">
+  </script>
+  <!-- taskmanager.js must come before index.js -->
+  <script src="index.js"></script>
+  <!-- <script src="formValidation/index.js"></script> -->
+</body>
+
 </html>
