@@ -1,69 +1,176 @@
+// Anindha has divide this into index + task-form-manager
+//Anindha has the HTML in task.js, not in taskmanager.js
+
+//import Task from "./taskManager";
+//import TaskManager from "./taskManager.js";
+//displays Today date
+let todayDate = document.getElementById("date");
+const option = { weekday: "long", month: "short", day: "numeric" };
+const today = new Date();
+
+todayDate.innerHTML = today.toLocaleDateString("en-US", option);
+const taskManager = new TaskManager();
+console.log(taskManager);
+
 //newTaskForm is the form in the create task modal
 let newTaskForm = document.getElementById("newTaskForm");
 newTaskForm.addEventListener("submit", formEventListener);
 newTaskForm.addEventListener("load", () => {
-  taskNameInput.focus();
+  createTaskNameInput.focus();
+});
+
+//updateTaskForm
+let updateTaskForm = document.getElementById("updateTaskForm");
+updateTaskForm.addEventListener("submit", formEventListener);
+updateTaskForm.addEventListener("load", () => {
+  updateFormNameInput.focus();
 });
 
 //find the correct point, click on Create button
 let tasksContainer = document.querySelector("#tasksrow");
 
-//taskModalSaveButton is on the edit MODAL
-let taskModalSaveButton = document.querySelector("#save");
-taskModalSaveButton.addEventListener("click", saveButtonClicked);
+//updateModalSaveButton is on the edit MODAL
+let updateModalSaveButton = document.querySelector("#save");
+updateModalSaveButton.addEventListener("click", updateSaveButtonClicked);
+
+$("#taskEditModal").on("shown.bs.modal", function () {
+  $("#updateTaskNameInput").trigger("focus");
+});
 
 //buttonCreateTask is on the main page
 let buttonCreateTask = document.getElementById("btnCreateTask");
-buttonCreateTask.onclick = clearForm;
+buttonCreateTask.onclick = clearTaskCreationForm;
 
 //addTaskButton is on the create task MODAL
 let addTaskButton = document.getElementById("addTaskButton");
 addTaskButton.onclick = addTask;
 
+taskManager.readTasks();
+taskManager.displayTasks(tasksContainer);
+
+let btnChangeStatusToReview = document.getElementById(
+  "btnChangeStatusToReview"
+);
+btnChangeStatusToReview.addEventListener("click", () => {
+  taskManager.DisplayStatus = "Review";
+  taskManager.displayTasks(tasksContainer);
+});
+
+let btnChangeStatusToAll = document.getElementById("btnChangeStatusToAll");
+btnChangeStatusToAll.addEventListener("click", () => {
+  taskManager.DisplayStatus = "ALL";
+  taskManager.displayTasks(tasksContainer);
+});
+
+let btnChangeStatusToDo = document.getElementById("btnChangeStatusToDo");
+btnChangeStatusToDo.addEventListener("click", () => {
+  taskManager.DisplayStatus = "To Do";
+  taskManager.displayTasks(tasksContainer);
+});
+
+let btnChangeStatusToProgress = document.getElementById(
+  "btnChangeStatusToProgress"
+);
+btnChangeStatusToProgress.addEventListener("click", () => {
+  taskManager.DisplayStatus = "In Progress";
+  taskManager.displayTasks(tasksContainer);
+});
+
+let btnChangeStatusToDone = document.getElementById("btnChangeStatusToDone");
+btnChangeStatusToDone.addEventListener("click", () => {
+  taskManager.DisplayStatus = "Done";
+  taskManager.displayTasks(tasksContainer);
+});
+
 // START of create task modal input elements
 
-let taskNameInput = document.getElementById("taskName");
-taskNameInput.addEventListener("keypress", inputEventListener);
-taskNameInput.addEventListener("change", inputEventListener);
+let createTaskNameInput = document.getElementById("taskName");
+createTaskNameInput.addEventListener("keydown", createFormInputsEventListener);
 
-let taskDescriptionInput = document.getElementById("taskDescription");
-taskDescriptionInput.addEventListener("keypress", inputEventListener);
-taskDescriptionInput.addEventListener("change", inputEventListener);
+let createTaskDescriptionInput = document.getElementById("taskDescription");
+createTaskDescriptionInput.addEventListener(
+  "keydown",
+  createFormInputsEventListener
+);
 
-let assignedToInput = document.getElementById("assignedTo");
-assignedToInput.addEventListener("keypress", inputEventListener);
-assignedToInput.addEventListener("change", inputEventListener);
+let createTaskAssignedToInput = document.getElementById("assignedTo");
+createTaskAssignedToInput.addEventListener(
+  "keydown",
+  createFormInputsEventListener
+);
 
-let dueDateInput = document.getElementById("dueDate");
-dueDateInput.addEventListener("keypress", inputEventListener);
-dueDateInput.addEventListener("change", inputEventListener);
+let createTaskDueDateInput = document.getElementById("dueDate");
+createTaskDueDateInput.addEventListener(
+  "keydown",
+  createFormInputsEventListener
+);
+createTaskDueDateInput.addEventListener(
+  "change",
+  createFormInputsEventListener
+);
 
-let statusInput = document.getElementById("status");
-statusInput.addEventListener("keypress", inputEventListener);
-statusInput.addEventListener("change", inputEventListener);
+let createTaskStatusInput = document.getElementById("addStatus");
+createTaskStatusInput.addEventListener(
+  "keydown",
+  createFormInputsEventListener
+);
+createTaskStatusInput.addEventListener("change", createFormInputsEventListener);
 
-// END of create task modal input elements
+// start of update modal form inputs add event listeners
 
-const taskManager = new TaskManager();
-//test
-console.log("");
-taskManager.generateRandomTasks(true);
-taskManager.displayTasks("tasksrow");
+let updateFormNameInput = document.getElementById("updateTaskNameInput");
+updateFormNameInput.addEventListener("keydown", updateFormInputsEventListener);
 
-function saveButtonClicked(e) {
-  //To save EDITS
-  const name = document.querySelector("#taskName2").value;
+let updateFormDescriptionInput = document.getElementById("taskDescription2");
+updateFormDescriptionInput.addEventListener(
+  "keydown",
+  updateFormInputsEventListener
+);
+
+let updateFormAssignedToInput = document.getElementById("assignedTo2");
+updateFormAssignedToInput.addEventListener(
+  "keydown",
+  updateFormInputsEventListener
+);
+
+let updateFormDueDateInput = document.getElementById("dueDate2");
+updateFormDueDateInput.addEventListener(
+  "keydown",
+  updateFormInputsEventListener
+);
+updateFormDueDateInput.addEventListener(
+  "change",
+  updateFormInputsEventListener
+);
+
+let updateFormStatusInput = document.getElementById("status2");
+updateFormStatusInput.addEventListener(
+  "keydown",
+  updateFormInputsEventListener
+);
+updateFormStatusInput.addEventListener("change", updateFormInputsEventListener);
+
+function updateSaveButtonClicked(e) {
+  // To save updated task fields that have been updated on the update modal form
+  const taskId = updateTaskForm.taskId.value;
+  const name = document.querySelector("#updateTaskNameInput").value;
   const description = document.querySelector("#taskDescription2").value;
   const asignee = document.querySelector("#assignedTo2").value;
   const date = document.querySelector("#dueDate2").value;
   const status = document.querySelector("#status2").value;
-
-  addTask(name, description, asignee, date, status);
+  taskManager.updateTask(
+    Number(taskId),
+    name,
+    description,
+    asignee,
+    new Date(date),
+    status
+  );
 }
 
 function addTask() {
-  // To save newly created tasks
-  // Creates a new card from a string
+  // To save newly created tasks with taskManager.addTask()
+  // Task manager will create a new card from a string and display it with taskManager.displayTasks()
 
   const name = document.querySelector("#taskName").value;
   const description = document.querySelector("#taskDescription").value;
@@ -73,147 +180,65 @@ function addTask() {
 
   let newTask = new Task(0, name, description, asignee, new Date(date), status);
   let newId = taskManager.addTask(newTask);
-  console.log(newId);
-  console.log(status);
-  console.table(taskManager.tasks);
-
-  const html = `
-    <div id="${newId++}" class="task col-lg-4">
-      <div class="card my-4">
-
-        <div
-          class="card-header"
-          id="header1
-          >
-          <h2 class="mb-0 text-left" style="text-decoration: none;">
-            <button
-              id="b1"
-              class="btn btn-block text-left"
-              type="button"
-              data-toggle="collapse"
-              data-target="#collapse1"
-              aria-expanded="true"
-              aria-controls="collapse1"
-              style="background-color: rgb(96, 96, 245); color: white;"
-            >
-              <strong>
-                <h5
-                  class="text-center"
-                  style="
-                    text-decoration: none;
-                    background-color: rgb(96, 96, 245);
-                    color: white;
-                  "
-                >
-                ${name}</h5>
-              </strong>
-            </button>
-          </h2>
-        </div>
-
-        <div id="collapse1" class="collapse show" aria-labelledby="head1">
-          <div class="card-body">
-            <h5 class="card-title">${description}</h5>
-            <p class="card-text"></p>
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <li
-              class="list-group-item"
-              style="background-color: rgb(141, 234, 250);"
-            >
-              Asignee: ${asignee}
-            </li>
-            <li class="list-group-item">Date Due: ${date}</li>
-            <li class="list-group-item status">Status: ${status}</li>
-            <li class="list-group-item">
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#taskEditModal"
-              >
-                Edit
-              </button>
-              <button
-                  type="button"
-                  id="deleteBtn${newId}"
-                  class="deleteBtn btn btn-secondary btn-sm"
-                  >
-                  Delete
-              </button>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  `;
-
-  let taskFragment = document.createRange().createContextualFragment(html);
-  console.log(html);
-  tasksContainer.append(taskFragment);
-
-  // window.onload = function () {}
-  let deleteBtn = document.querySelector("#deleteBtn" + newId);
-
-  if (deleteBtn) {
-    deleteBtn.addEventListener("click", function (event) {
-      
-      var taskElement = event.target.closest(".task");
-      taskManager.deleteTaskById(taskElement.id);
-      //todo Remove Card from DOM; Refresh screen
-      taskManager.displayTasks("tasksrow");
-    });
-  }
+  taskManager.displayTasks(tasksContainer);
 }
 
 function formEventListener(event) {
-  // Expecting the SUBMIT EVENT
-  // NOT FIRING AT THE MOMENT - WE don't need the form to be submitted anyway because the ADD BUTTON creates and displays the newly created task.
-  const valid = this.checkValidity();
-
-  if (this.checkValidity() === false) {
-    // Form is INVALID
+  let form = event.target;
+  const valid = form.checkValidity();
+  if (valid === false) {
     event.preventDefault();
     event.stopPropagation();
-    this.reset();
+    form.reset();
   } else {
-    // Form is VALID
-    // Therefore we want to continue with the submit
-    //remove the following to allow the submission to proceed at a later date after testing
-    //event.preventDefault();
-    //event.stopPropagation();
-    //alert("asdf");
   }
 
   // The 'was-validated' class is saying the form has been through the validation process, BUT NOT that the form is valid.
   // Only when the form has this class, the pass and fail messages will be shown.
-  this.classList.add("was-validated");
+  form.classList.add("was-validated");
 }
 
-function inputEventListener() {
-  // The listener for all the inputs
+function createFormInputsEventListener(event) {
+  // The listener for all the inputs on the creation form
 
-  let b = newTaskForm.checkValidity();
-
-  if (b == false) {
-    // Only enable (or maybe display) the add button if the form is valid
+  let isValid = newTaskForm.checkValidity();
+  console.log("input listener. isValid: " + isValid);
+  if (isValid == false) {
     addTaskButton.classList.add("hide");
     addTaskButton.classList.remove("show");
-    //alert("some fields are invalid");
   } else {
-    addTaskButton.classList.add("show");
     addTaskButton.classList.remove("hide");
+    addTaskButton.classList.add("show");
   }
   // The 'was-validated' class is saying the form has been through the validation process, BUT NOT THAT THE FORM IS VALID.
   // the pass and fail messages will be shown only when the form has been given this class, .
   newTaskForm.classList.add("was-validated");
 }
 
-function clearForm() {
-  // Clears all the inputs as for some reason they displayed the previous user attempt's values
+function updateFormInputsEventListener() {
+  // The listener for all the inputs on the update form
+
+  let isValid = updateTaskForm.checkValidity();
+
+  if (isValid == false) {
+    updateModalSaveButton.classList.add("hide");
+    updateModalSaveButton.classList.remove("show");
+  } else {
+    updateModalSaveButton.classList.remove("hide");
+    updateModalSaveButton.classList.add("show");
+  }
+  // The 'was-validated' class is saying the form has been through the validation process, BUT NOT THAT THE FORM IS VALID.
+  // the pass and fail messages will be shown only when the form has been given this class, .
+  updateTaskForm.classList.add("was-validated");
+}
+
+function clearTaskCreationForm() {
+  // Clears all the inputs on the form
   newTaskForm.reset();
+
+  $("#taskModal").on("shown.bs.modal", function () {
+    $("#taskName").trigger("focus");
+  });
   // Remove the class that allows the pass and fail messages to be displayed.
   newTaskForm.classList.remove("was-validated");
 }
