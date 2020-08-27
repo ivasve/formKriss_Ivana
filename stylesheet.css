@@ -1,6 +1,39 @@
-.hide { cursor: not-allowed;
-    pointer-events: none;
+.hide {
+  cursor: not-allowed;
+  pointer-events: none;
 
-    /*Button disabled - CSS color class*/
-    color: #c0c0c0;
-    background-color: #ffffff;}
+  /*Button disabled - CSS color class*/
+  color: #c0c0c0;
+  background-color: #ffffff;
+}
+
+button {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.cardNameButton {
+  background-color: rgb(96, 96, 245);
+  color: white;
+}
+
+.Review {
+  background-color: rgb(136, 88, 130);
+}
+
+.Done {
+  background-color: rgb(51, 158, 99);
+}
+.To,
+.Do {
+  background-color: rgb(158, 51, 51);
+}
+
+.Progress {
+  background-color: rgb(96, 96, 245);
+}
+
+.All {
+  background-color: rgb(83, 155, 197);
+  color: white;
+}
