@@ -10,5 +10,7 @@ All Tasks are stored in a local storage. <br />
 ## Testing with Jest
 
 7 unit tests (2 suites) 
-Run Jest from the command line
+Run Jest from the command line with
 jest taskManager.test.js
+or
+npm run test
